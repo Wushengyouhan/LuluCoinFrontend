@@ -1,3 +1,4 @@
+'use client';
 // 导入 Next.js 提供的 Link 组件，用于实现页面跳转
 import Link from "next/link";
 // 导入 Next.js 提供的 Image 组件，用于优化图像加载

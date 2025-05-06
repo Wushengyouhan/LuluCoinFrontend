@@ -1,0 +1,16 @@
+{
+  "extends": "next/core-web-vitals",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  }
+} 

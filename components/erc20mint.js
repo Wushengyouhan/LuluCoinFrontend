@@ -1,7 +1,8 @@
+'use client';
 // 从 ethers.js 库中导入 ethers 和 BigNumber，用于与区块链交互和大数计算
 import { ethers, BigNumber } from "ethers";
 // 从 React 导入 useState 和 useEffect，用于管理组件的状态和副作用
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 // 导入 LuLuCoin 智能合约的 ABI 文件，用于与合约进行交互
 import LuLuCoin from "../LuLuCoin.json";
 
@@ -51,7 +52,7 @@ export default function MintERC20({ accounts }) {
   }
 
   // 定义 fetchBalance 函数，用于获取用户的代币余额
-  async function fetchBalance() {
+  const fetchBalance = useCallback(async () => {
     if (window.ethereum) {
       // 创建以太坊提供者和签名者实例
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -78,7 +79,7 @@ export default function MintERC20({ accounts }) {
         console.log("error fetching balance", e);
       }
     }
-  }
+  }, [accounts]);
 
   // 使用 useEffect 钩子，在组件挂载和账户连接变化时调用 fetchBalance，并设置定时器定期刷新余额
   useEffect(() => {
@@ -87,7 +88,7 @@ export default function MintERC20({ accounts }) {
       const intervalId = setInterval(fetchBalance, 1000); // 每秒刷新余额
       return () => clearInterval(intervalId); // 清理定时器
     }
-  }, [accounts, isConnected]);
+  }, [isConnected, fetchBalance]);
 
   // 渲染组件内容
   return (
